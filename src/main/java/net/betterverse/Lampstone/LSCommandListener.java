@@ -6,41 +6,30 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class LSCommandListener
-  implements CommandExecutor
-{
-  private static Lampstone plugin;
+        implements CommandExecutor {
+    private static Lampstone plugin;
 
-  public LSCommandListener(Lampstone instance)
-  {
-    plugin = instance;
-  }
-
-  public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args)
-  {
-    if (command.getName().equalsIgnoreCase("lampstone")) {
-      if ((sender instanceof Player)) {
-        Player player = (Player)sender;
-
-        if (player.hasPermission("Lampstone.create")) {
-          return true;
-        }
-
-        if (plugin.isPlacing(player)) {
-          plugin.removeFromPlacingList(player);
-          player.sendMessage("Lampstone mode disabled");
-        } else {
-          plugin.addToPlacingList(player);
-          player.sendMessage("Lampstone mode enabled.");
-          player.sendMessage("Place your lampstones now.");
-        }
-
-        return true;
-      }
-    } else if (command.getName().equalsIgnoreCase("time")) {
-      Player player = (Player)sender;
-
-      player.getWorld().setTime(Long.parseLong(args[0]));
+    public LSCommandListener(Lampstone instance) {
+        plugin = instance;
     }
-    return false;
-  }
+
+    public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
+        if (command.getName().equalsIgnoreCase("lampstone")) {
+            if ((sender instanceof Player)) {
+                Player player = (Player) sender;
+                if (player.hasPermission("Lampstone.create")) {
+                    if (plugin.isPlacing(player)) {
+                        plugin.removeFromPlacingList(player);
+                        player.sendMessage("Lampstone mode disabled");
+                    } else {
+                        plugin.addToPlacingList(player);
+                        player.sendMessage("Lampstone mode enabled.");
+                    }
+                   
+                } else player.sendMessage("You do not have permission!");
+                return true;
+            }
+        }
+        return false;
+    }
 }
