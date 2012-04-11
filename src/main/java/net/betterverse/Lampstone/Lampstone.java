@@ -45,7 +45,7 @@ public class Lampstone extends JavaPlugin {
         getCommand("lampstone").setExecutor(new Command(this));
         pm.registerEvents(new BlockListener(this), this);
         
-        getServer().getScheduler().scheduleAsyncRepeatingTask(this, new Timer(this), 0L, 200L);
+        getServer().getScheduler().scheduleSyncRepeatingTask(this, new Timer(this), 0L, 200L);
         
         log.info(prefix + this.getDescription().getVersion() + " enabled");
     }
