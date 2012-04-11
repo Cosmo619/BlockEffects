@@ -1,10 +1,10 @@
 name: Lampstone
 main: net.betterverse.Lampstone.Lampstone
-version: 0.8
+version: 1.1
 commands:
   lampstone:
     description: Enables/disables lampstone mode
     usage: /<command>
     permissions:
-        - Lampstone.build
-        - Lampstone.break
+    - Lampstone.build
+    - Lampstone.break
