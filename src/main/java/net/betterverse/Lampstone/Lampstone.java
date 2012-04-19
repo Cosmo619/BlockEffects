@@ -25,8 +25,8 @@ public class Lampstone extends JavaPlugin {
     
     public static sqlCore sqlite;
     
-    public static int day_block = 20;
-    public static int night_block = 89;
+    public static int day_block;
+    public static int night_block;
     
     public static List<Location> lamps;
     public static List<Player> placers;
@@ -78,8 +78,8 @@ public class Lampstone extends JavaPlugin {
             
             config = (YamlConfiguration) getConfig();
             
-            day_block = config.getInt("day_block", day_block);
-            night_block = config.getInt("night_block", night_block);
+            day_block = config.getInt("day_block", 20);
+            night_block = config.getInt("night_block", 89);
             config.set("day_block", day_block);
             config.set("night_block", night_block);
             
