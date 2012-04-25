@@ -1,4 +1,4 @@
-package net.betterverse.BlockEffects.SignColors;
+package net.betterverse.BlockEffects;
 
 import net.betterverse.BlockEffects.Main;
 import org.bukkit.event.EventHandler;
