@@ -1,5 +1,5 @@
-name: Lampstone
-main: net.betterverse.Lampstone.Lampstone
+name: BlockEffects
+main: net.betterverse.BlockEffects.Main
 version: 1.1
 commands:
   lampstone:

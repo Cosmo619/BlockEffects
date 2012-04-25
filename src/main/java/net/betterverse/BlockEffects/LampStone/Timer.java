@@ -1,4 +1,4 @@
-package net.betterverse.Lampstone;
+package net.betterverse.BlockEffects.LampStone;
 
 import org.bukkit.Location;
 import org.bukkit.World;
