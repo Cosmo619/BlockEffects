@@ -48,7 +48,7 @@ public class Lampstone {
         
         plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Timer(this), 0L, 200L);
         
-        Utils.log.info(prefix + " enabled");
+        Utils.log.info(prefix + "enabled");
     }
     
 
@@ -78,7 +78,6 @@ public class Lampstone {
     private void loadLamps() {
         Utils.log.info(prefix + "Loading lamps...");
         lamps.clear();
-        int i = 0;
         
         ResultSet results = sqlite.sqlQuery("SELECT * FROM lamps");
         try {
@@ -87,13 +86,12 @@ public class Lampstone {
                 if (world != null) {
                     Location loc = new Location(world, results.getInt("x"), results.getInt("y"), results.getInt("z"));
                     lamps.add(loc);
-                    i++;
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        Utils.log.info(prefix + "Loaded " + i + " lamps");
+        Utils.log.info(prefix + "Loaded " + lamps.size() + " lamps");
     }
     
     public void addLamp(Block block) {
