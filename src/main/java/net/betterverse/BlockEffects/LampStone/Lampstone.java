@@ -62,7 +62,7 @@ public class Lampstone {
         Utils.log.info(prefix + "Loading lamps...");
         lamps.clear();
         
-        ResultSet results = main.db.sqlite.sqlQuery("SELECT * FROM lamps");
+        ResultSet results = main.db.sqlite.readQuery("SELECT * FROM lamps");
         try {
             while(results.next()) {
                 World world = Bukkit.getServer().getWorld(results.getString("world"));
@@ -71,6 +71,7 @@ public class Lampstone {
                     lamps.add(loc);
                 }
             }
+            results.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -85,7 +86,7 @@ public class Lampstone {
         Location loc = new Location(world, x, y, z);
         lamps.add(loc);
         String query = "INSERT INTO lamps (world, x, y, z) VALUES ('"+world.getName()+"', "+x+", "+y+", "+z+");";
-        main.db.sqlite.insertQuery(query);
+        main.db.sqlite.modifyQuery(query);
     }
     
     public void removeLamp(Block block) {
@@ -96,7 +97,7 @@ public class Lampstone {
         Location loc = new Location(world, x, y, z);
         lamps.remove(loc);
         String query = "DELETE FROM lamps WHERE world = '"+world.getName()+"' AND x = "+x+" AND y = "+y+" AND z = "+z+";";
-        main.db.sqlite.deleteQuery(query);
+        main.db.sqlite.modifyQuery(query);
     }
     
     public boolean isLamp(Block block) {

@@ -1,12 +1,12 @@
 package net.betterverse.BlockEffects;
 
-import com.alta189.sqlLibrary.SQLite.sqlCore;
 import java.io.File;
 import java.sql.Connection;
+import lib.net.darqy.SQLib.SQLite;
 
 public class Database {
     
-    public sqlCore sqlite;
+    public SQLite sqlite;
     public Connection conn;
     Main plugin;
 
@@ -25,18 +25,18 @@ public class Database {
     }
     
     private void setup() {
-        sqlite = new sqlCore(Utils.log, "[BlockEffects] ", "blockeffects", plugin.getDataFolder().getAbsolutePath());
-        sqlite.initialize();
+        sqlite = new SQLite(Utils.log, "[BlockEffects] ", "blockeffects.db", plugin.getDataFolder().getAbsolutePath());
+        sqlite.open();
         conn = sqlite.getConnection();
         
-        if (!sqlite.checkTable("lamps")) {
+        if (!sqlite.tableExists("lamps")) {
             Utils.log.info("[BlockEffects] lamps table didn't exist! Creating...");
-            sqlite.createTable("CREATE TABLE `lamps` (`id` INT PRIMARY_KEY AUTO_INCREMENT, `world` VARCHAR(32), `x` INT, `y` INT, `z` INT);");
+            sqlite.modifyQuery("CREATE TABLE `lamps` (`id` INT PRIMARY_KEY AUTO_INCREMENT, `world` VARCHAR(32), `x` INT, `y` INT, `z` INT);");
         }
         
-        if(!sqlite.checkTable("messagesigns")) {
+        if(!sqlite.tableExists("messagesigns")) {
             Utils.log.info("[BlockEffects] messagesigns table didn't exist! Creating...");
-            sqlite.createTable("CREATE  TABLE `messagesigns` (`id` INT PRIMARY_KEY AUTO_INCREMENT, `owner` VARCHAR(32) NOT NULL, `message` TEXT NOT NULL, `location` BLOB NOT NULL);");
+            sqlite.modifyQuery("CREATE  TABLE `messagesigns` (`id` INT PRIMARY_KEY AUTO_INCREMENT, `owner` VARCHAR(32) NOT NULL, `message` TEXT NOT NULL, `location` BLOB NOT NULL);");
         }
     }
     
