@@ -1,6 +1,5 @@
 package net.betterverse.BlockEffects.LampStone;
 
-import com.alta189.sqlLibrary.SQLite.sqlCore;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,14 +16,12 @@ import org.bukkit.plugin.PluginManager;
 
 public class Lampstone {
     
-    Main plugin;
+    Main main;
     
     public static final String prefix = "[BlockEffects][Lampstone] ";
     PluginManager pm;
     
     public String pFolder;
-    
-    public static sqlCore sqlite;
     
     public static int day_block;
     public static int night_block;
@@ -33,53 +30,39 @@ public class Lampstone {
     public static List<Player> placers;
     
     public Lampstone(Main instance) {
-        this.plugin = instance;
-        pFolder = plugin.getDataFolder().getPath();
-        pm = plugin.getServer().getPluginManager();
+        this.main = instance;
+        pFolder = main.getDataFolder().getPath();
+        pm = main.getServer().getPluginManager();
         lamps = new ArrayList<Location>();
         placers = new ArrayList<Player>();
         
         loadConf();
-        setupDatabase();
-        
         loadLamps();
-        plugin.getCommand("lampstone").setExecutor(new Commands(this));
-        pm.registerEvents(new BlockListener(this), plugin);
         
-        plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, new Timer(this), 0L, 200L);
+        main.getCommand("lampstone").setExecutor(new Commands(this));
+        pm.registerEvents(new BlockListener(this), main);
+        
+        main.getServer().getScheduler().scheduleSyncRepeatingTask(main, new Timer(this), 0L, 200L);
         
         Utils.log.info(prefix + "enabled");
     }
     
-
-    
-    private void setupDatabase() {
-        sqlite = new sqlCore(Utils.log, prefix, "lampstone", pFolder);
-        sqlite.initialize();
-        
-        if (!sqlite.checkTable("lamps")) {
-            Utils.log.info(prefix + "Creating lamps table..");
-            String query = "CREATE TABLE lamps (`id` INT AUTO_INCREMENT PRIMARY_KEY, `world` VARCHAR(32), `x` INT, `y` INT, `z` INT);";
-            sqlite.createTable(query);
-        }
-    }
-    
     private void loadConf() {
-        Configuration config = plugin.getConfig();
+        Configuration config = main.getConfig();
 
         day_block = config.getInt("day_block", 20);
         night_block = config.getInt("night_block", 89);
         config.set("day_block", day_block);
         config.set("night_block", night_block);
         
-        plugin.saveConfig();
+        main.saveConfig();
     }
     
     private void loadLamps() {
         Utils.log.info(prefix + "Loading lamps...");
         lamps.clear();
         
-        ResultSet results = sqlite.sqlQuery("SELECT * FROM lamps");
+        ResultSet results = main.db.sqlite.sqlQuery("SELECT * FROM lamps");
         try {
             while(results.next()) {
                 World world = Bukkit.getServer().getWorld(results.getString("world"));
@@ -102,7 +85,7 @@ public class Lampstone {
         Location loc = new Location(world, x, y, z);
         lamps.add(loc);
         String query = "INSERT INTO lamps (world, x, y, z) VALUES ('"+world.getName()+"', "+x+", "+y+", "+z+");";
-        sqlite.insertQuery(query);
+        main.db.sqlite.insertQuery(query);
     }
     
     public void removeLamp(Block block) {
@@ -113,7 +96,7 @@ public class Lampstone {
         Location loc = new Location(world, x, y, z);
         lamps.remove(loc);
         String query = "DELETE FROM lamps WHERE world = '"+world.getName()+"' AND x = "+x+" AND y = "+y+" AND z = "+z+";";
-        sqlite.deleteQuery(query);
+        main.db.sqlite.deleteQuery(query);
     }
     
     public boolean isLamp(Block block) {

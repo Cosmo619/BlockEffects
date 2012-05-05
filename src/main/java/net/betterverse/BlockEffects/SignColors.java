@@ -1,6 +1,5 @@
 package net.betterverse.BlockEffects;
 
-import net.betterverse.BlockEffects.Main;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.SignChangeEvent;
@@ -14,7 +13,7 @@ public class SignColors implements Listener {
         setup();
     }
     
-    public void setup() {
+    private void setup() {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
     

@@ -8,3 +8,7 @@ commands:
     permissions:
     - Lampstone.build
     - Lampstone.break
+  blockeffects:
+    description: BlockEffects commands
+    usage: /<command>
+    aliases: [be]
