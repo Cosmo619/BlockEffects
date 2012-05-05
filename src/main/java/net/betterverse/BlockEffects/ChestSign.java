@@ -47,14 +47,14 @@ public class ChestSign implements Listener {
                 
                 signs.remove(e.getPlayer());
             }
-        }
         
-        //Handle clicking sign
-        if ((e.getClickedBlock().getState() instanceof Sign) && (placers.contains(e.getPlayer()))) {
-            signs.put(e.getPlayer(), (Sign) e.getClickedBlock().getState());
-            placers.remove(e.getPlayer());
-            
-            e.getPlayer().sendMessage("§aGo click a chest!");
+            //Handle clicking sign
+            if ((e.getClickedBlock().getState() instanceof Sign) && (placers.contains(e.getPlayer()))) {
+                signs.put(e.getPlayer(), (Sign) e.getClickedBlock().getState());
+                placers.remove(e.getPlayer());
+
+                e.getPlayer().sendMessage("§aGo click a chest!");
+            }
         }
     }
     
