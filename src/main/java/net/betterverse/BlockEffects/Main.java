@@ -11,6 +11,7 @@ public class Main extends JavaPlugin {
     public SignColors sc;
     public MessagePlates mp;
     public SignMessage sm;
+    public ChestSign cs;
     
     @Override
     public void onEnable() {
@@ -19,6 +20,7 @@ public class Main extends JavaPlugin {
         sc = new SignColors(this);
         mp = new MessagePlates(this);
         sm = new SignMessage(this);
+        cs = new ChestSign(this);
         
         getCommand("blockeffects").setExecutor(new Commands(this));
     }

@@ -27,8 +27,19 @@ public class Commands implements CommandExecutor {
             s.sendMessage("§aGo right click on a sign to set its message");
             
             main.sm.setEditor((Player) s);
+        } else if(args[0].equalsIgnoreCase("signchest")) {
+            if (!(s instanceof Player)) return false;
+            
+            if (!s.hasPermission("blockeffects.signchest")) {
+                s.sendMessage("§cYou don't have permission to do that");
+                return true;
+            }
+            
+            s.sendMessage("§aClick the sign you want to attach to a chest");
+            
+            main.cs.addPlacer((Player) s);
         } else {
-            s.sendMessage("§cInvalid arguement");
+            s.sendMessage("§cInvalid argument");
         }
         
         return true;
