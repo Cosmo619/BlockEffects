@@ -31,12 +31,12 @@ public class Database {
         
         if (!sqlite.tableExists("lamps")) {
             Utils.log.info("[BlockEffects] lamps table didn't exist! Creating...");
-            sqlite.modifyQuery("CREATE TABLE `lamps` (`id` INT PRIMARY_KEY AUTO_INCREMENT, `world` VARCHAR(32), `x` INT, `y` INT, `z` INT);");
+            sqlite.modifyQuery("CREATE TABLE `lamps` (`id` INTEGER PRIMARY KEY, `world` VARCHAR(32), `x` INT, `y` INT, `z` INT);");
         }
         
         if(!sqlite.tableExists("messagesigns")) {
             Utils.log.info("[BlockEffects] messagesigns table didn't exist! Creating...");
-            sqlite.modifyQuery("CREATE  TABLE `messagesigns` (`id` INT PRIMARY_KEY AUTO_INCREMENT, `owner` VARCHAR(32) NOT NULL, `message` TEXT NOT NULL, `location` BLOB NOT NULL);");
+            sqlite.modifyQuery("CREATE  TABLE `messagesigns` (`id` INTEGER PRIMARY KEY, `owner` VARCHAR(32) NOT NULL, `message` TEXT NOT NULL, `location` BLOB NOT NULL);");
         }
     }
     
