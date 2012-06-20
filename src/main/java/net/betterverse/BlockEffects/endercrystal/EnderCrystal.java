@@ -19,6 +19,13 @@ public class EnderCrystal {
     public EnderCrystal(Main main) {
         this.main = main;
         this.configFile = new File(main.getDataFolder(), "endercrystals.yml");
+        if (!(configFile.exists())) {
+            try {
+                configFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         
         main.getCommand("endercrystal").setExecutor(new EnderCrystalCommand(this));  
         main.getServer().getPluginManager().registerEvents(new EnderCrystalListener(), main);
