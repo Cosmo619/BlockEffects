@@ -50,12 +50,12 @@
 
     <repositories>
         <repository>
-            <id>bukkit-repo</id>
-            <url>http://repo.bukkit.org/content/groups/public</url>
+            <id>spout-repo</id>
+            <url>http://nexus.spout.org/content/groups/public</url>
         </repository>
         <repository>
-            <id>spout-repo</id>
-            <url>http://repo.spout.org/content/groups/public</url>
+            <id>bukkit-repo</id>
+            <url>http://repo.bukkit.org/content/groups/public</url>
         </repository>
     </repositories>
     
@@ -63,13 +63,13 @@
         <dependency>
             <groupId>org.bukkit</groupId>
             <artifactId>bukkit</artifactId>
-            <version>1.2.5-R1.0</version>
+            <version>1.2.5-R4.0</version>
             <type>jar</type>
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>net.milkbowl.vault</groupId>
-            <artifactId>Vault</artifactId>
+            <groupId>net.milkbowl</groupId>
+            <artifactId>vault</artifactId>
             <version>1.2.9</version>
             <scope>compile</scope>
         </dependency>
