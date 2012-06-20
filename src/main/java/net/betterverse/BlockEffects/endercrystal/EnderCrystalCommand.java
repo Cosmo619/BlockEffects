@@ -36,6 +36,16 @@ public class EnderCrystalCommand implements CommandExecutor {
                 player.sendMessage("You don't have permission!");
                 return true;
             }
+    		Block block = player.getTargetBlock(null, 300);
+            if (block == null) {
+                return true;
+            }
+            Block above = block.getRelative(BlockFace.UP);
+            Block fire = above.getRelative(BlockFace.UP);
+			if (block.getType() == Material.AIR || fire.getType() == Material.AIR) {
+                    player.sendMessage("Not enough space at target location!");
+                return true;
+            }
             RegisteredServiceProvider<Economy> economy = main.getMain().getServer().getServicesManager().getRegistration(Economy.class);
             if (economy != null) {
                 Economy eco = economy.getProvider();
@@ -46,12 +56,6 @@ public class EnderCrystalCommand implements CommandExecutor {
                     eco.withdrawPlayer(player.getName(), main.getCost());
                 }
             }
-            Block block = player.getTargetBlock(null, 300);
-            if (block == null) {
-                return true;
-            }
-            Block above = block.getRelative(BlockFace.UP);
-            Block fire = above.getRelative(BlockFace.UP);
             player.getWorld().spawn(above.getLocation().add(0.5D, 0D, 0.5D), org.bukkit.entity.EnderCrystal.class);
             above.setType(Material.BEDROCK);
             fire.setType(Material.FIRE);
