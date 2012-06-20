@@ -52,7 +52,7 @@ public class EnderCrystalCommand implements CommandExecutor {
             }
             Block above = block.getRelative(BlockFace.UP);
             Block fire = above.getRelative(BlockFace.UP);
-            player.getWorld().spawn(above.getLocation().add(0D, 0.5D, 0D), org.bukkit.entity.EnderCrystal.class);
+            player.getWorld().spawn(above.getLocation().add(0.5D, 0D, 0.5D), org.bukkit.entity.EnderCrystal.class);
             above.setType(Material.BEDROCK);
             fire.setType(Material.FIRE);
             player.sendMessage("Crystal placed!");
@@ -63,9 +63,9 @@ public class EnderCrystalCommand implements CommandExecutor {
             }	
             for (Entity e : player.getNearbyEntities(1D, 1D, 1D)) {
                 if (e.getType() == EntityType.ENDER_CRYSTAL) {
-                    Block above = e.getLocation().getBlock().getRelative(BlockFace.UP);
-                    if (above.getType() == Material.BEDROCK) {
-                        above.setType(Material.AIR);
+                    Block block = e.getLocation().getBlock().getRelative(BlockFace.DOWN);
+                    if (block.getType() == Material.BEDROCK) {
+                        block.setType(Material.AIR);
                     }
                     e.remove();
                 }
