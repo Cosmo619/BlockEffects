@@ -2,6 +2,7 @@ package net.betterverse.BlockEffects.endercrystal;
 
 import net.milkbowl.vault.economy.Economy;
 
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.command.Command;
@@ -50,8 +51,10 @@ public class EnderCrystalCommand implements CommandExecutor {
                 return true;
             }
             Block above = block.getRelative(BlockFace.UP);
+            Block bedrock = above.getRelative(BlockFace.UP);
             above.setTypeId(0);
             player.getWorld().spawn(above.getLocation(), org.bukkit.entity.EnderCrystal.class);
+            bedrock.setType(Material.BEDROCK);
             player.sendMessage("Crystal placed!");
         } else if (args[0].equalsIgnoreCase("remove")) {
             if (!(player.hasPermission("BlockEffects.endercrystal.remove"))) {
@@ -60,6 +63,10 @@ public class EnderCrystalCommand implements CommandExecutor {
             }	
             for (Entity e : player.getNearbyEntities(1D, 1D, 1D)) {
                 if (e.getType() == EntityType.ENDER_CRYSTAL) {
+                    Block above = e.getLocation().getBlock().getRelative(BlockFace.UP);
+                    if (above.getType() == Material.BEDROCK) {
+                        above.setType(Material.AIR);
+                    }
                     e.remove();
                 }
             }
