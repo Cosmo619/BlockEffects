@@ -49,7 +49,7 @@ public class EnderCrystalCommand implements CommandExecutor {
             }
             Block above = block.getRelative(BlockFace.UP);
             above.setTypeId(0);
-            player.getWorld().spawnCreature(above.getLocation(), EntityType.ENDER_CRYSTAL);
+            player.getWorld().spawn(above.getLocation(), org.bukkit.entity.EnderCrystal.class);
             player.sendMessage("Crystal placed!");
         } else if (args[0].equalsIgnoreCase("remove")) {
             if (!(player.hasPermission("BlockEffects.endercrystal.remove"))) {
