@@ -8,6 +8,12 @@ commands:
     permissions:
     - Lampstone.build
     - Lampstone.break
+  endercrystal:
+    description: Places and removes endercrystals
+    usage: Try /<command> place or /<command> remove
+    permissions:
+    - BlockEffects.endercystal.place
+    - BlockEffects.endercrystal.remove
   blockeffects:
     description: BlockEffects commands
     usage: /<command>

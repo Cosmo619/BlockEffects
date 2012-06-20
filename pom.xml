@@ -53,6 +53,10 @@
             <id>bukkit-repo</id>
             <url>http://repo.bukkit.org/content/groups/public</url>
         </repository>
+        <repository>
+            <id>milkbowl-repo</id>
+            <url>http://ci.milkbowl.net/plugin/repository/everything/</url>
+        </repository>
     </repositories>
     
     <dependencies>
@@ -61,6 +65,12 @@
             <artifactId>bukkit</artifactId>
             <version>1.2.5-R1.0</version>
             <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.milkbowl.vault</groupId>
+            <artifactId>Vault</artifactId>
+            <version>1.2.9-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

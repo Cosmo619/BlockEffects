@@ -2,6 +2,8 @@ package net.betterverse.BlockEffects;
 
 import net.betterverse.BlockEffects.LampStone.Lampstone;
 import net.betterverse.BlockEffects.SignMessage.SignMessage;
+import net.betterverse.BlockEffects.endercrystal.EnderCrystal;
+
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin {
@@ -12,6 +14,7 @@ public class Main extends JavaPlugin {
     public MessagePlates mp;
     public SignMessage sm;
     public ChestSign cs;
+    public EnderCrystal ec;
     
     @Override
     public void onEnable() {
@@ -21,6 +24,7 @@ public class Main extends JavaPlugin {
         mp = new MessagePlates(this);
         sm = new SignMessage(this);
         cs = new ChestSign(this);
+        ec = new EnderCrystal(this);
         
         getCommand("blockeffects").setExecutor(new Commands(this));
     }
