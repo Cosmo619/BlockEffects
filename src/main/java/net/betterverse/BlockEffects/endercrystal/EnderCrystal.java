@@ -35,7 +35,9 @@ public class EnderCrystal {
     
     public void loadConfig() {
         YamlConfiguration config = YamlConfiguration.loadConfiguration(configFile);
-        cost = config.getInt("cost", 50000);
+        config.addDefault("EnderCrystal.cost", 50000);
+        config.options().copyDefaults(true);
+        cost = config.getInt("EnderCrystal.cost", 50000);
         try {
             config.save(configFile);
         } catch (IOException e) {
