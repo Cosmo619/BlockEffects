@@ -51,10 +51,10 @@ public class EnderCrystalCommand implements CommandExecutor {
                 return true;
             }
             Block above = block.getRelative(BlockFace.UP);
-            Block bedrock = above.getRelative(BlockFace.UP);
-            above.setTypeId(0);
-            player.getWorld().spawn(above.getLocation(), org.bukkit.entity.EnderCrystal.class);
-            bedrock.setType(Material.BEDROCK);
+            Block fire = above.getRelative(BlockFace.UP);
+            player.getWorld().spawn(above.getLocation().add(0D, 0.5D, 0D), org.bukkit.entity.EnderCrystal.class);
+            above.setType(Material.BEDROCK);
+            fire.setType(Material.FIRE);
             player.sendMessage("Crystal placed!");
         } else if (args[0].equalsIgnoreCase("remove")) {
             if (!(player.hasPermission("BlockEffects.endercrystal.remove"))) {
