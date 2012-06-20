@@ -43,7 +43,7 @@ public class EnderCrystalCommand implements CommandExecutor {
                     player.sendMessage("You don't have enough money!");
                     return true;
                 } else {
-                    eco.bankWithdraw(player.getName(), main.getCost());
+                    eco.withdrawPlayer(player.getName(), main.getCost());
                 }
             }
             Block block = player.getTargetBlock(null, 300);
