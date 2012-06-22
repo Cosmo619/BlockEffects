@@ -1,4 +1,4 @@
-package net.betterverse.BlockEffects.endercrystal;
+&&package net.betterverse.BlockEffects.endercrystal;
 
 import net.milkbowl.vault.economy.Economy;
 
@@ -42,7 +42,7 @@ public class EnderCrystalCommand implements CommandExecutor {
             }
             Block above = block.getRelative(BlockFace.UP);
             Block fire = above.getRelative(BlockFace.UP);
-			if (above.getType() == Material.AIR || fire.getType() == Material.AIR) {
+			if (!(above.getType() == Material.AIR && fire.getType() == Material.AIR)) {
                     player.sendMessage("Not enough space at target location!");
                 return true;
             }
