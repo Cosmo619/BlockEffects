@@ -1,4 +1,4 @@
-&&package net.betterverse.BlockEffects.endercrystal;
+package net.betterverse.BlockEffects.endercrystal;
 
 import net.milkbowl.vault.economy.Economy;
 
