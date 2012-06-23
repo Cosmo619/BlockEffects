@@ -1,8 +1,8 @@
 package net.betterverse.BlockEffects;
 
+import net.betterverse.BlockEffects.EnderCrystal.EnderCrystal;
 import net.betterverse.BlockEffects.LampStone.Lampstone;
 import net.betterverse.BlockEffects.SignMessage.SignMessage;
-import net.betterverse.BlockEffects.endercrystal.EnderCrystal;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
