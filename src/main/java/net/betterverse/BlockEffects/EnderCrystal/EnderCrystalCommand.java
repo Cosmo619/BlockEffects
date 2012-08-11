@@ -11,6 +11,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
 public class EnderCrystalCommand implements CommandExecutor {
@@ -40,6 +42,10 @@ public class EnderCrystalCommand implements CommandExecutor {
             if (block == null) {
                 return true;
             }
+            
+            final BlockPlaceEvent e = new BlockPlaceEvent(block, block.getState(), block.getRelative(BlockFace.DOWN), player.getItemInHand(), player, true);
+            main.main.getServer().getPluginManager().callEvent(e);
+            if (e.isCancelled()) return true;
             Block above = block.getRelative(BlockFace.UP);
             Block fire = above.getRelative(BlockFace.UP);
 			if (above.getType() != Material.AIR || fire.getType() != Material.AIR) {
@@ -68,6 +74,11 @@ public class EnderCrystalCommand implements CommandExecutor {
             for (Entity e : player.getNearbyEntities(1D, 1D, 1D)) {
                 if (e.getType() == EntityType.ENDER_CRYSTAL) {
                     Block block = e.getLocation().getBlock().getRelative(BlockFace.DOWN);
+                    
+                    final BlockBreakEvent evt = new BlockBreakEvent(block, player);
+                    main.main.getServer().getPluginManager().callEvent(evt);
+                    if (evt.isCancelled()) return true;
+                    
                     if (block.getType() == Material.BEDROCK) {
                         block.setType(Material.AIR);
                     }

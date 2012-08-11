@@ -12,7 +12,7 @@ public class EnderCrystal {
     
     private final File configFile;
     
-    private Main main;
+    public Main main;
     
     private int cost;
     
