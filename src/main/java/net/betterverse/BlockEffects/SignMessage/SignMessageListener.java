@@ -7,6 +7,7 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -76,8 +77,9 @@ public class SignMessageListener implements Listener {
         }
     }
     
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public void onBlockBreak(BlockBreakEvent e) {
+        if (e.isCancelled()) return;
         //They've attempted to break the actual sign
         if (sm.signs.containsKey(e.getBlock().getLocation())) {
             if ((!e.getPlayer().hasPermission("blockeffects.admin.signtext"))
