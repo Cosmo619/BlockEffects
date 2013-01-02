@@ -9,6 +9,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.commons.lang.Validate;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -16,14 +18,19 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.BrewerInventory;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-public class StackCommand implements CommandExecutor {
+public class StackCommand implements CommandExecutor, Listener {
 
     List<Integer> noStack;
 
     public StackCommand(Main plugin) {
+        plugin.getServer().getPluginManager().registerEvents(this, plugin);
         File configFile = new File(plugin.getDataFolder(), "stack.yml");
         FileConfiguration config = YamlConfiguration.loadConfiguration(configFile);
         noStack = config.getIntegerList("noStack");
@@ -36,6 +43,28 @@ public class StackCommand implements CommandExecutor {
             config.save(configFile);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+    
+    @EventHandler
+    public void onInventoryClick(InventoryClickEvent e) {
+        if (e.getInventory() instanceof BrewerInventory) {
+            BrewerInventory inv = (BrewerInventory)e.getInventory();
+            for (int i = 0; i < 4; i++) {
+                if (inv.getItem(i) != inv.getIngredient() && inv.getItem(i) != null) {
+                    ItemStack item = inv.getItem(i);
+                    if (item.getAmount() > 1) {
+                        ((Player)e.getWhoClicked()).sendMessage(ChatColor.RED+"Potion duping isn't allowed.");
+                        inv.setItem(i, null);
+                        for (Player p : Bukkit.getServer().getOnlinePlayers()) {
+                            if (p.hasPermission("nostack.notify")) {
+                                p.sendMessage(ChatColor.AQUA+e.getWhoClicked().getName()+" was caught attempting to dupe!");
+                            }
+                        }
+                    }
+                    
+                }
+            }
         }
     }
 
