@@ -22,3 +22,7 @@ commands:
     description: Stacks all allowed items in the sender's inventory.
     usage: /<command>
     permission: blockeffects.stack
+  quickpickup:
+    description: Enables/disables quickpickup mode.
+    permission: blockeffects.quickpickup
+    usage: /<command>
