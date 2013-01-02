@@ -53,7 +53,7 @@ public class StackCommand implements CommandExecutor, Listener {
     @EventHandler
     public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent e) {
         // Yes, I know this isn't how commands should be done.  We need to override WG and/or WE.
-        if (e.getMessage().replace("/", "").replace(" ", "").equalsIgnoreCase("stack")) {
+        if (e.getMessage().replace("/", "").replace(" ", "").equalsIgnoreCase("stack") && e.getPlayer().hasPermission("blockeffects.stack")) {
             e.setCancelled(true);
             stackInventory(e.getPlayer().getInventory());
             e.getPlayer().sendMessage(ChatColor.YELLOW+"Stacked!");
