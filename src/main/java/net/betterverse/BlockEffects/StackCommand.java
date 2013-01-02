@@ -3,6 +3,7 @@ package net.betterverse.BlockEffects;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +21,9 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.Event.Result;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.BrewerInventory;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -48,22 +51,19 @@ public class StackCommand implements CommandExecutor, Listener {
     
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
-        if (e.getInventory() instanceof BrewerInventory) {
-            BrewerInventory inv = (BrewerInventory)e.getInventory();
-            for (int i = 0; i < 4; i++) {
-                if (inv.getItem(i) != inv.getIngredient() && inv.getItem(i) != null) {
-                    ItemStack item = inv.getItem(i);
-                    if (item.getAmount() > 1) {
-                        ((Player)e.getWhoClicked()).sendMessage(ChatColor.RED+"Potion duping isn't allowed.");
-                        inv.setItem(i, null);
-                        for (Player p : Bukkit.getServer().getOnlinePlayers()) {
-                            if (p.hasPermission("nostack.notify")) {
-                                p.sendMessage(ChatColor.AQUA+e.getWhoClicked().getName()+" was caught attempting to dupe!");
-                            }
-                        }
+        if (e.getView().getTopInventory() instanceof BrewerInventory) {
+            BrewerInventory inv = (BrewerInventory)e.getView().getTopInventory();
+            ItemStack item = e.getCurrentItem();
+            if (e.isShiftClick() && item != null && item.getType() == Material.POTION && e.getSlot() != e.getRawSlot() && item.getAmount() > 1) {
+                int removed = 0;
+                for (int i = item.getAmount() > 3 ? 2 : item.getAmount()-1; i >= 0; i--) {
+                    if (inv.getItem(i) == null) {
+                        inv.setItem(i, new ItemStack(Material.POTION));
+                        removed++;
                     }
-                    
                 }
+                item.setAmount(item.getAmount()- removed);
+                e.setResult(Result.DENY);
             }
         }
     }
