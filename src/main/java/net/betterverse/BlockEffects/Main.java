@@ -27,6 +27,7 @@ public class Main extends JavaPlugin {
         ec = new EnderCrystal(this);
         
         getCommand("blockeffects").setExecutor(new Commands(this));
+        getCommand("stack").setExecutor(new StackCommand(this));
     }
     
     @Override

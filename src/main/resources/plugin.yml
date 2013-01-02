@@ -18,3 +18,7 @@ commands:
     description: BlockEffects commands
     usage: /<command>
     aliases: [be]
+  stack:
+    description: Stacks all allowed items in the sender's inventory.
+    usage: /<command>
+    permission: blockeffects.stack
