@@ -46,7 +46,7 @@ public class StackCommand implements CommandExecutor, Listener {
             e.printStackTrace();
         }
     }
-    
+
     @EventHandler
     public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent e) {
         // Yes, I know this isn't how commands should be done.  We need to override WG and/or WE.
@@ -56,7 +56,7 @@ public class StackCommand implements CommandExecutor, Listener {
             e.getPlayer().sendMessage(ChatColor.YELLOW+"Stacked!");
         }
     }
-    
+
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
         if (e.getView().getTopInventory() instanceof BrewerInventory) {
@@ -70,7 +70,11 @@ public class StackCommand implements CommandExecutor, Listener {
                         removed++;
                     }
                 }
-                item.setAmount(item.getAmount()- removed);
+                if (removed >= item.getAmount()) {
+                    e.getView().setItem(e.getSlot(), null);
+                } else {
+                    item.setAmount(item.getAmount()- removed);
+                }
                 e.setResult(Result.DENY);
             }
         }
