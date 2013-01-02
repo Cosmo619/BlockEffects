@@ -71,7 +71,7 @@ public class StackCommand implements CommandExecutor, Listener {
                     }
                 }
                 if (removed >= item.getAmount()) {
-                    e.getView().setItem(e.getSlot(), null);
+                    e.setCurrentItem(null);
                 } else {
                     item.setAmount(item.getAmount()- removed);
                 }
