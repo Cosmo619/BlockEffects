@@ -24,6 +24,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.Event.Result;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.inventory.BrewerInventory;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -46,6 +47,16 @@ public class StackCommand implements CommandExecutor, Listener {
             config.save(configFile);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+    
+    @EventHandler
+    public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent e) {
+        // Yes, I know this isn't how commands should be done.  We need to override WG and/or WE.
+        if (e.getMessage().replace("/", "").replace(" ", "").equalsIgnoreCase("stack")) {
+            e.setCancelled(true);
+            stackInventory(e.getPlayer().getInventory());
+            e.getPlayer().sendMessage(ChatColor.YELLOW+"Stacked!");
         }
     }
     
