@@ -39,7 +39,7 @@ public class StackCommand implements CommandExecutor, Listener {
         noStack = config.getIntegerList("noStack");
         if (noStack == null) {
             noStack = new ArrayList<Integer>();
-            noStack.add(Material.GLASS_BOTTLE.getId());
+            noStack.add(Material.POTION.getId());
         }
         config.set("noStack", noStack);
         try {
