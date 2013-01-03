@@ -26,3 +26,7 @@ commands:
     description: Enables/disables quickpickup mode.
     permission: blockeffects.quickpickup
     usage: /<command>
+  throwbuild:
+    description: Enables/disables throwbuild mode.
+    permission: blockeffects.throwbuild
+    usage: /<command>
