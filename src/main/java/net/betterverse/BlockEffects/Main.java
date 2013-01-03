@@ -29,6 +29,7 @@ public class Main extends JavaPlugin {
         getCommand("blockeffects").setExecutor(new Commands(this));
         getCommand("stack").setExecutor(new StackCommand(this));
         getCommand("quickpickup").setExecutor(new QuickPickup(this));
+        getCommand("throwbuild").setExecutor(new ThrowBuild(this));
     }
     
     @Override
